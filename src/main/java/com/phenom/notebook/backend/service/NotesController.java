@@ -45,15 +45,6 @@ public class NotesController {
         }
     }
 
-     @PostMapping("/updateNote/{id}/{userId}/{title}")
-    public void updateNote(@PathVariable String id,@PathVariable String userId, @PathVariable String title, @RequestBody String text){
-        try{
-            noteRepository.deleteById(id);
-            noteRepository.save(new Note(id,title,text,userId));
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-    }
 
     @PostMapping("/deleteNote/{id}")
     public void deleteNote(@PathVariable String id){
