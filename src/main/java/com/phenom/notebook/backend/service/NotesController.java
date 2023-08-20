@@ -3,6 +3,7 @@ package com.phenom.notebook.backend.service;
 import com.phenom.notebook.backend.model.Note;
 import com.phenom.notebook.backend.repository.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoAction;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
 public class NotesController {
 
 
-    private NoteRepository noteRepository;
+    private final NoteRepository noteRepository;
 
     @Autowired
     NotesController(NoteRepository noteRepository){
@@ -45,6 +46,15 @@ public class NotesController {
         try{
             noteRepository.deleteById(id);
             noteRepository.save(new Note(id,title,text,userId));
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @PostMapping("/deleteNote/{id}")
+    public void deleteNote(@PathVariable String id){
+        try{
+            noteRepository.deleteById(id);
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
