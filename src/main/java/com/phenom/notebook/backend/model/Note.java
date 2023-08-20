@@ -15,7 +15,8 @@ public class Note {
 
     public Note(){}
 
-    public Note(String title,String text,String userId){
+    public Note(String id,String title,String text,String userId){
+        this.id = id;
         this.text = text;
         this.userId = userId;
         this.title = title;

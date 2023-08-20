@@ -29,10 +29,10 @@ public class NotesController {
         return List.of();
     }
 
-    @PostMapping("/createNote/{userId}/{title}")
-    public void createNote(@PathVariable String userId ,@PathVariable String title, @RequestBody String text){
+    @PostMapping("/createNote/{id}/{userId}/{title}")
+    public void createNote(@PathVariable String id,@PathVariable String userId ,@PathVariable String title, @RequestBody String text){
         try{
-            Note newNote = new Note(title,text,userId);
+            Note newNote = new Note(id,title,text,userId);
             noteRepository.save(newNote);
         }
         catch (Exception e){
@@ -40,9 +40,14 @@ public class NotesController {
         }
     }
 
-    @PostMapping("/updateNote/{userId}/{title}")
-    public void updateNote(@PathVariable String userId, @PathVariable String title, @RequestBody String text){
-
+    @PostMapping("/updateNote/{id}/{userId}/{title}")
+    public void updateNote(@PathVariable String id,@PathVariable String userId, @PathVariable String title, @RequestBody String text){
+        try{
+            noteRepository.deleteById(id);
+            noteRepository.save(new Note(id,title,text,userId));
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
 
